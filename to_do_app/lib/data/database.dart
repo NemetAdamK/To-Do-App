@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:to_do_app/model/quote.dart';
 
 class ToDoDataBase {
 
@@ -6,11 +7,8 @@ class ToDoDataBase {
 
   final _box = Hive.openBox('box');
 
-  void createInitialData() {
-    toDoList = [
-      ["First task" , false],
-      ["second tas", false],
-    ];
+  void createInitialData(List<Quote> quotes) {
+    toDoList = quotes.map((quote) => [quote.text, false]).toList();
   }
 
   Future<void> loadData() async {

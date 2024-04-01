@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:to_do_app/data/database.dart';
+import 'package:to_do_app/model/quote.dart';
 import 'package:to_do_app/util/dialog_box.dart';
 import 'package:to_do_app/util/todo_tile.dart';
 
@@ -18,18 +19,25 @@ class _MyHomePageState extends State<HomePage> {
 @override
   void initState() {
     super.initState();
+    db = ToDoDataBase();
     loadDataIfNeeded();
   }
 
   void loadDataIfNeeded() async {
   final box = await Hive.openBox('box');
-  setState(() {
     if (box.get("TODOLIST") == null) {
-      db.createInitialData();
+        List<Quote> quotes = await fetchQuotes();
+  
+        // Initialize ToDoDataBase instance  
+        // Create initial data with fetched quotes
+        setState(() {
+          db.createInitialData(quotes);
+        });
     } else {
-      db.loadData();
+      setState(() {
+          db.loadData();
+      });
     }
-  });
 }
 final _controller = TextEditingController();
 

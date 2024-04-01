@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 // ignore: must_be_immutable
@@ -47,10 +48,12 @@ class ToDoTile extends StatelessWidget {
                 onChanged: onChanged,
                 activeColor: Colors.black,
               ),
-              Text(
-                taskName,
-                style: TextStyle(decoration: taskCompleted ? TextDecoration.lineThrough : TextDecoration.none),
-                ),
+              Expanded(
+                child: Text(
+                  taskName,
+                  style: TextStyle(decoration: taskCompleted ? TextDecoration.lineThrough : TextDecoration.none),
+                  ),
+              ),
             ],
           ),
         ),
